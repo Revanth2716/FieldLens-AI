@@ -1,0 +1,11 @@
+# Model configuration.
+#
+# MobileNetV3-Small is chosen deliberately: ~2.5M parameters, a ~10 MB
+# checkpoint, and small enough to train comfortably in 4 GB of VRAM on the
+# GTX 1650. Capacity is not the bottleneck this project is investigating;
+# calibration and reliability are.
+model:
+  backbone: mobilenet_v3_small
+  weights: DEFAULT     # IMAGENET1K_V1 pretrained weights (~10 MB download)
+  image_size: 224
+  dropout: 0.2

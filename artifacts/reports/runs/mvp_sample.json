@@ -1,0 +1,240 @@
+{
+  "run_name": "mvp_sample",
+  "started_at": "2026-10-09T12:13:54",
+  "finished_at": "2026-10-09T12:14:20",
+  "seed": 42,
+  "device": "cuda",
+  "device_name": "NVIDIA GeForce GTX 1650",
+  "amp_enabled": true,
+  "dataset": {
+    "repo_id": "mohanty/PlantVillage",
+    "config": "color",
+    "license": "CC-BY-SA-3.0",
+    "split_policy": "leak_free",
+    "image_root": "data\\sample"
+  },
+  "model": {
+    "backbone": "mobilenet_v3_small",
+    "weights": "DEFAULT",
+    "image_size": 224,
+    "dropout": 0.2
+  },
+  "train": {
+    "seed": 42,
+    "batch_size": 16,
+    "num_workers": 2,
+    "head_epochs": 2,
+    "finetune_epochs": 6,
+    "head_lr": 0.001,
+    "finetune_lr": 0.0001,
+    "weight_decay": 0.0001,
+    "label_smoothing": 0.05,
+    "amp": true,
+    "early_stopping_patience": 3,
+    "augment": {
+      "random_resized_crop_scale": [
+        0.7,
+        1.0
+      ],
+      "random_resized_crop_ratio": [
+        0.8,
+        1.25
+      ],
+      "horizontal_flip": true,
+      "vertical_flip": true,
+      "rotation_degrees": 15,
+      "color_jitter": 0.15
+    },
+    "balanced_sampling": false
+  },
+  "split_counts": {
+    "train": 8942,
+    "val": 1104,
+    "test": 2454
+  },
+  "class_counts": {
+    "train": {
+      "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": 36,
+      "Corn_(maize)___Common_rust_": 38,
+      "Corn_(maize)___healthy": 35,
+      "Grape___Black_rot": 35,
+      "Grape___Esca_(Black_Measles)": 37,
+      "Grape___healthy": 37,
+      "Potato___Early_blight": 37,
+      "Potato___Late_blight": 40,
+      "Potato___healthy": 32,
+      "Tomato___Early_blight": 36,
+      "Tomato___Late_blight": 38,
+      "Tomato___healthy": 37
+    },
+    "val": {
+      "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": 3,
+      "Corn_(maize)___Common_rust_": 1,
+      "Corn_(maize)___healthy": 3,
+      "Grape___Black_rot": 3,
+      "Grape___Esca_(Black_Measles)": 2,
+      "Grape___healthy": 3,
+      "Potato___Early_blight": 2,
+      "Potato___Late_blight": 0,
+      "Potato___healthy": 3,
+      "Tomato___Early_blight": 3,
+      "Tomato___Late_blight": 2,
+      "Tomato___healthy": 3
+    }
+  },
+  "leakage": {
+    "passed": true,
+    "split_policy": "leak_free",
+    "dropped_leaky_entries": 5,
+    "split_counts": {
+      "train": 8942,
+      "val": 1104,
+      "test": 2454
+    },
+    "leaf_counts": {
+      "train": 8932,
+      "val": 1104,
+      "test": 2454
+    },
+    "class_counts": {
+      "train": {
+        "Potato___Late_blight": 712,
+        "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": 359,
+        "Tomato___Early_blight": 704,
+        "Corn_(maize)___Common_rust_": 843,
+        "Corn_(maize)___healthy": 789,
+        "Tomato___healthy": 1131,
+        "Grape___Esca_(Black_Measles)": 963,
+        "Grape___Black_rot": 908,
+        "Potato___Early_blight": 753,
+        "Grape___healthy": 294,
+        "Tomato___Late_blight": 1375,
+        "Potato___healthy": 111
+      },
+      "val": {
+        "Potato___Late_blight": 76,
+        "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": 47,
+        "Tomato___Early_blight": 81,
+        "Corn_(maize)___Common_rust_": 132,
+        "Corn_(maize)___healthy": 123,
+        "Tomato___healthy": 128,
+        "Grape___Esca_(Black_Measles)": 136,
+        "Grape___Black_rot": 104,
+        "Potato___Early_blight": 83,
+        "Grape___healthy": 29,
+        "Tomato___Late_blight": 156,
+        "Potato___healthy": 9
+      },
+      "test": {
+        "Potato___Late_blight": 212,
+        "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": 107,
+        "Tomato___Early_blight": 215,
+        "Corn_(maize)___Common_rust_": 217,
+        "Corn_(maize)___healthy": 250,
+        "Tomato___healthy": 330,
+        "Grape___Esca_(Black_Measles)": 284,
+        "Grape___Black_rot": 168,
+        "Potato___Early_blight": 164,
+        "Grape___healthy": 100,
+        "Tomato___Late_blight": 375,
+        "Potato___healthy": 32
+      }
+    },
+    "cross_split_leaf_overlaps": {},
+    "cross_split_leaf_overlap_counts": {},
+    "cross_split_path_overlaps": {},
+    "leaf_ids_spanning_multiple_classes": {},
+    "copy_suffixed_leaves": 1207,
+    "leaf_source_counts": {
+      "leaf_map": 7633,
+      "filename_tail": 4867
+    },
+    "smallest_class": "Potato___healthy",
+    "smallest_class_count": 152
+  },
+  "parameters": {
+    "total": 1530156,
+    "trainable": 659596
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 1.655649,
+      "val_accuracy": 0.678571,
+      "val_macro_f1": 0.625758,
+      "seconds": 11.94
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.867548,
+      "val_accuracy": 0.678571,
+      "val_macro_f1": 0.577922,
+      "seconds": 1.23
+    },
+    {
+      "epoch": 1,
+      "train_loss": 0.872788,
+      "val_accuracy": 0.678571,
+      "val_macro_f1": 0.6171,
+      "seconds": 1.17
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.803632,
+      "val_accuracy": 0.678571,
+      "val_macro_f1": 0.632251,
+      "seconds": 1.18
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.788556,
+      "val_accuracy": 0.714286,
+      "val_macro_f1": 0.649567,
+      "seconds": 1.27
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.741811,
+      "val_accuracy": 0.75,
+      "val_macro_f1": 0.725325,
+      "seconds": 1.18
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.756903,
+      "val_accuracy": 0.75,
+      "val_macro_f1": 0.725325,
+      "seconds": 1.16
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.718291,
+      "val_accuracy": 0.75,
+      "val_macro_f1": 0.725325,
+      "seconds": 1.26
+    }
+  ],
+  "peak_vram_bytes": 73624064,
+  "epoch_seconds": [
+    11.94,
+    1.23,
+    1.17,
+    1.18,
+    1.27,
+    1.18,
+    1.16,
+    1.26
+  ],
+  "history": {
+    "best_val_macro_f1": 0.725325,
+    "epochs_run": 8,
+    "mean_epoch_seconds": 2.55,
+    "total_seconds": 20.39
+  },
+  "git_sha": "HEAD",
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "torch": "2.14.1+cu130",
+  "torchvision": "0.29.1+cu130",
+  "checkpoint": "D:\\Revanth projects\\FieldLens AI\\artifacts\\checkpoints\\mvp_sample\\best.pt"
+}

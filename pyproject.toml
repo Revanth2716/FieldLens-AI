@@ -1,0 +1,67 @@
+[project]
+name = "fieldlens-ai"
+version = "0.1.0"
+description = "Plant leaf health classification with honest confidence checks and leakage-safe evaluation"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "MIT" }
+
+# Core runtime dependencies. The dataset is NOT required to import or test the
+# library; only the data phases need it on disk.
+dependencies = [
+    "numpy>=1.26",
+    "pillow>=10.0",
+    "PyYAML>=6.0",
+    "torch",
+    "torchvision",
+]
+
+[project.optional-dependencies]
+# Evaluation and reporting (installed at the evaluation milestone).
+eval = ["scikit-learn>=1.4", "matplotlib>=3.8"]
+# Streamlit interface (installed at the UI milestone).
+ui = ["streamlit>=1.30"]
+# Development tooling.
+dev = ["pytest>=7.0", "ruff>=0.5"]
+
+[project.scripts]
+fieldlens = "fieldlens.cli:main"
+
+# --- PyTorch wheels: CUDA wheels are only published on the PyTorch index, which
+# --- is marked explicit so it is used only for the packages mapped below.
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch" }
+torchvision = { index = "pytorch" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Dataset-dependent tests are opt-in: they skip on a fresh clone, but the default
+# run should stay hermetic and fast regardless of what is on disk.
+# The basetemp keeps pytest's scratch files inside the project (on the same drive as
+# the project) instead of the OS temp directory, which on this machine is a small
+# system drive.
+addopts = ["-m", "not slow", "--basetemp=.cache/pytest-tmp"]
+markers = [
+    "slow: dataset-dependent tests, opt-in only (not run in default CI)",
+    "model: requires a trained checkpoint; skips cleanly when absent",
+    "network: requires network access; opt-in only",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests legitimately use asserts and long fixture literals.
+"tests/**" = ["S101"]

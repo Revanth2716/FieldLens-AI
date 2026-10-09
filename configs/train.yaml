@@ -1,0 +1,30 @@
+# Training configuration.
+#
+# Staged on purpose: stage 1 trains only the head (fast, produces a usable
+# checkpoint within minutes), stage 2 fine-tunes the last feature block.
+train:
+  seed: 42
+  batch_size: 64          # fallback ladder if OOM: 32 -> grad accumulation -> 192px
+  num_workers: 2          # 7.35 GB RAM total, so keep worker count low
+  head_epochs: 2
+  finetune_epochs: 10
+  head_lr: 0.001
+  finetune_lr: 0.0001
+  weight_decay: 0.0001
+  label_smoothing: 0.05
+  amp: true               # memory benefit; note TU117 has no Tensor Cores, so
+                          # do not expect a large speedup from fp16 here
+  early_stopping_patience: 3
+  # Class weighting is off by default. The rare class is handled first by
+  # reporting macro F1 and per-class recall rather than hiding it in accuracy.
+  balanced_sampling: false
+
+  augment:
+    random_resized_crop_scale: [0.7, 1.0]
+    random_resized_crop_ratio: [0.8, 1.25]
+    horizontal_flip: true
+    vertical_flip: true
+    rotation_degrees: 15
+    # Deliberately mild: brightness is a measured reliability variable later, so
+    # the model must not be trained specifically on the perturbation we study.
+    color_jitter: 0.15

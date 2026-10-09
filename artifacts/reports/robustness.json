@@ -1,0 +1,265 @@
+{
+  "note": "Each figure measures sensitivity to the named synthetic transformation at the listed severity. These are not field-condition accuracies and must not be restated as such.",
+  "num_images": 300,
+  "transformation_legend": {
+    "brightness": "multiply pixel values by a gain factor",
+    "resolution": "downscale to N px, then upscale back to the model input size",
+    "jpeg": "re-encode as JPEG at a given quality factor",
+    "blur": "Gaussian blur with standard deviation sigma"
+  },
+  "baseline": {
+    "accuracy": 0.8933333333333333,
+    "macro_f1": 0.9297395871863621,
+    "mean_confidence": 0.910892128944397,
+    "num_samples": 300
+  },
+  "sweeps": {
+    "brightness": {
+      "transformation": "multiply pixel values by a gain factor",
+      "levels": [
+        {
+          "level": 0.3,
+          "accuracy": 0.7966666666666666,
+          "macro_f1": 0.828367049131798,
+          "macro_recall": 0.7966666666666666,
+          "mean_confidence": 0.7893505692481995,
+          "num_samples": 300
+        },
+        {
+          "level": 0.5,
+          "accuracy": 0.9066666666666666,
+          "macro_f1": 0.9381842832297582,
+          "macro_recall": 0.9066666666666666,
+          "mean_confidence": 0.9019535183906555,
+          "num_samples": 300
+        },
+        {
+          "level": 0.75,
+          "accuracy": 0.9266666666666666,
+          "macro_f1": 0.9523477545131008,
+          "macro_recall": 0.9266666666666667,
+          "mean_confidence": 0.9204645752906799,
+          "num_samples": 300
+        },
+        {
+          "level": 1.0,
+          "accuracy": 0.8933333333333333,
+          "macro_f1": 0.9297395871863621,
+          "macro_recall": 0.8933333333333333,
+          "mean_confidence": 0.910892128944397,
+          "num_samples": 300
+        },
+        {
+          "level": 1.25,
+          "accuracy": 0.8533333333333334,
+          "macro_f1": 0.9031218807136634,
+          "macro_recall": 0.8533333333333333,
+          "mean_confidence": 0.8965145945549011,
+          "num_samples": 300
+        },
+        {
+          "level": 1.5,
+          "accuracy": 0.7866666666666666,
+          "macro_f1": 0.8524054185744028,
+          "macro_recall": 0.7866666666666666,
+          "mean_confidence": 0.8457224369049072,
+          "num_samples": 300
+        },
+        {
+          "level": 2.0,
+          "accuracy": 0.53,
+          "macro_f1": 0.5799269104689694,
+          "macro_recall": 0.53,
+          "mean_confidence": 0.7036570310592651,
+          "num_samples": 300
+        }
+      ],
+      "baseline_macro_f1": 0.9297395871863621,
+      "worst_level": 2.0,
+      "worst_macro_f1": 0.5799269104689694,
+      "macro_f1_drop_from_baseline": 0.3498126767173927
+    },
+    "resolution": {
+      "transformation": "downscale to N px, then upscale back to the model input size",
+      "levels": [
+        {
+          "level": 32.0,
+          "accuracy": 0.5466666666666666,
+          "macro_f1": 0.553887389088083,
+          "macro_recall": 0.5466666666666666,
+          "mean_confidence": 0.48745158314704895,
+          "num_samples": 300
+        },
+        {
+          "level": 48.0,
+          "accuracy": 0.68,
+          "macro_f1": 0.692191890407144,
+          "macro_recall": 0.6799999999999999,
+          "mean_confidence": 0.5520690083503723,
+          "num_samples": 300
+        },
+        {
+          "level": 64.0,
+          "accuracy": 0.66,
+          "macro_f1": 0.6708024462818983,
+          "macro_recall": 0.6599999999999999,
+          "mean_confidence": 0.6025547385215759,
+          "num_samples": 300
+        },
+        {
+          "level": 96.0,
+          "accuracy": 0.77,
+          "macro_f1": 0.8047649001417645,
+          "macro_recall": 0.7700000000000001,
+          "mean_confidence": 0.7179785966873169,
+          "num_samples": 300
+        },
+        {
+          "level": 128.0,
+          "accuracy": 0.7466666666666667,
+          "macro_f1": 0.7937772088897201,
+          "macro_recall": 0.7466666666666667,
+          "mean_confidence": 0.685824453830719,
+          "num_samples": 300
+        },
+        {
+          "level": 160.0,
+          "accuracy": 0.8833333333333333,
+          "macro_f1": 0.9236638564344053,
+          "macro_recall": 0.8833333333333334,
+          "mean_confidence": 0.8455784320831299,
+          "num_samples": 300
+        },
+        {
+          "level": 224.0,
+          "accuracy": 0.9166666666666666,
+          "macro_f1": 0.9504472338097207,
+          "macro_recall": 0.9166666666666667,
+          "mean_confidence": 0.8921235203742981,
+          "num_samples": 300
+        }
+      ],
+      "baseline_macro_f1": 0.9297395871863621,
+      "worst_level": 32.0,
+      "worst_macro_f1": 0.553887389088083,
+      "macro_f1_drop_from_baseline": 0.3758521980982791
+    },
+    "jpeg": {
+      "transformation": "re-encode as JPEG at a given quality factor",
+      "levels": [
+        {
+          "level": 95.0,
+          "accuracy": 0.8933333333333333,
+          "macro_f1": 0.930928470083586,
+          "macro_recall": 0.8933333333333333,
+          "mean_confidence": 0.9094954133033752,
+          "num_samples": 300
+        },
+        {
+          "level": 85.0,
+          "accuracy": 0.89,
+          "macro_f1": 0.9301436016559841,
+          "macro_recall": 0.89,
+          "mean_confidence": 0.8995421528816223,
+          "num_samples": 300
+        },
+        {
+          "level": 70.0,
+          "accuracy": 0.8733333333333333,
+          "macro_f1": 0.9119938326389956,
+          "macro_recall": 0.8733333333333334,
+          "mean_confidence": 0.8981530666351318,
+          "num_samples": 300
+        },
+        {
+          "level": 50.0,
+          "accuracy": 0.8733333333333333,
+          "macro_f1": 0.9096921558289948,
+          "macro_recall": 0.8733333333333333,
+          "mean_confidence": 0.8699946999549866,
+          "num_samples": 300
+        },
+        {
+          "level": 30.0,
+          "accuracy": 0.8933333333333333,
+          "macro_f1": 0.9300835672210912,
+          "macro_recall": 0.8933333333333333,
+          "mean_confidence": 0.8694459795951843,
+          "num_samples": 300
+        },
+        {
+          "level": 15.0,
+          "accuracy": 0.8966666666666666,
+          "macro_f1": 0.9183312573076353,
+          "macro_recall": 0.8966666666666665,
+          "mean_confidence": 0.8171805739402771,
+          "num_samples": 300
+        },
+        {
+          "level": 5.0,
+          "accuracy": 0.34,
+          "macro_f1": 0.28572817596496386,
+          "macro_recall": 0.34,
+          "mean_confidence": 0.5965118408203125,
+          "num_samples": 300
+        }
+      ],
+      "baseline_macro_f1": 0.9297395871863621,
+      "worst_level": 5.0,
+      "worst_macro_f1": 0.28572817596496386,
+      "macro_f1_drop_from_baseline": 0.6440114112213982
+    },
+    "blur": {
+      "transformation": "Gaussian blur with standard deviation sigma",
+      "levels": [
+        {
+          "level": 0.5,
+          "accuracy": 0.9066666666666666,
+          "macro_f1": 0.9416782246879334,
+          "macro_recall": 0.9066666666666666,
+          "mean_confidence": 0.9253761768341064,
+          "num_samples": 300
+        },
+        {
+          "level": 1.0,
+          "accuracy": 0.8766666666666667,
+          "macro_f1": 0.9144610457715711,
+          "macro_recall": 0.8766666666666666,
+          "mean_confidence": 0.8303456902503967,
+          "num_samples": 300
+        },
+        {
+          "level": 2.0,
+          "accuracy": 0.6366666666666667,
+          "macro_f1": 0.6580976623760415,
+          "macro_recall": 0.6366666666666666,
+          "mean_confidence": 0.5495326519012451,
+          "num_samples": 300
+        },
+        {
+          "level": 3.0,
+          "accuracy": 0.6333333333333333,
+          "macro_f1": 0.6379779262172793,
+          "macro_recall": 0.6333333333333334,
+          "mean_confidence": 0.5060538649559021,
+          "num_samples": 300
+        },
+        {
+          "level": 4.0,
+          "accuracy": 0.5466666666666666,
+          "macro_f1": 0.5419290952960413,
+          "macro_recall": 0.5466666666666666,
+          "mean_confidence": 0.49023228883743286,
+          "num_samples": 300
+        }
+      ],
+      "baseline_macro_f1": 0.9297395871863621,
+      "worst_level": 4.0,
+      "worst_macro_f1": 0.5419290952960413,
+      "macro_f1_drop_from_baseline": 0.3878104918903208
+    }
+  },
+  "temperature": 0.5788300037384033,
+  "checkpoint": "D:\\Revanth projects\\FieldLens AI\\artifacts\\checkpoints\\fieldlens_mobilenetv3s_12class.pt",
+  "figure": true
+}

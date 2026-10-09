@@ -1,0 +1,30 @@
+# --- Dataset and caches: never committed ---
+# CC-BY-SA-3.0 dataset content must not be redistributed in this repository.
+data/
+.cache/
+.venv/
+venv/
+
+# --- Model artifacts ---
+# Run-specific checkpoints are large and reproducible from a training command.
+artifacts/checkpoints/*
+!artifacts/checkpoints/.gitkeep
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Streamlit ---
+.streamlit/secrets.toml
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

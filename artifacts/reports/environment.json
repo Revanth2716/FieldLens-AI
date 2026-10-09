@@ -1,0 +1,43 @@
+{
+  "python": "3.12.10",
+  "python_executable": "D:\\Revanth projects\\FieldLens AI\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "torch": "2.14.1+cu130",
+  "torchvision": "0.29.1+cu130",
+  "cuda_available": true,
+  "device": "cuda",
+  "device_name": "NVIDIA GeForce GTX 1650",
+  "device_capability": "7.5",
+  "device_memory_bytes": 4294639616,
+  "device_memory_human": "4.00 GiB",
+  "gpu_conv2d_ok": true,
+  "gpu_autograd_ok": true,
+  "cpu_gpu_parity_max_abs_diff": 7.152557373046875e-07,
+  "checks": [
+    {
+      "name": "cuda_available",
+      "ok": true,
+      "detail": "NVIDIA GeForce GTX 1650"
+    },
+    {
+      "name": "gpu_conv2d",
+      "ok": true,
+      "detail": "output shape (2, 8, 32, 32)"
+    },
+    {
+      "name": "gpu_autograd",
+      "ok": true,
+      "detail": "backward produced finite gradients"
+    },
+    {
+      "name": "cpu_gpu_parity",
+      "ok": true,
+      "detail": "max abs difference 7.153e-07 (tolerance 1e-3)"
+    }
+  ],
+  "failures": [],
+  "disk": {
+    "project_drive_free": "217.8 GB",
+    "system_drive_free": "10.5 GB"
+  }
+}

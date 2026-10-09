@@ -1,0 +1,26 @@
+# Evaluation, confidence policy, and reliability-experiment definitions.
+#
+# The warning bands below are conservative defaults. The calibration step
+# replaces them with thresholds fitted on the VALIDATION split at a target
+# coverage, and those fitted values are stored in the checkpoint.
+eval:
+  target_coverages: [0.5, 0.6, 0.7, 0.8, 0.9]
+
+  warning_bands:
+    high_confidence: 0.80
+    moderate_confidence: 0.55
+    min_margin: 0.20
+    max_entropy: 0.60
+
+  # Degradation sweeps run on frozen weights over the untouched test split.
+  # 1.0 gain is the unperturbed baseline and must be present.
+  degradation:
+    brightness:
+      gains: [0.3, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0]
+    resolution:
+      # downscale then upsample back to the model input size
+      sizes: [32, 48, 64, 96, 128, 160, 224]
+    jpeg:
+      qualities: [95, 85, 70, 50, 30, 15, 5]
+    blur:
+      sigmas: [0.5, 1.0, 2.0, 3.0, 4.0]

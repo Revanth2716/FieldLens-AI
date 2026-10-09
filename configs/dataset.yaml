@@ -1,0 +1,64 @@
+# Dataset configuration for FieldLens AI.
+#
+# Verified facts (see DATASET.md) are marked VERIFIED.
+# Anything marked ASSUMPTION must be confirmed by measurement before it is
+# relied upon; the pipeline records measured values into the run manifest.
+
+source:
+  repo_id: mohanty/PlantVillage          # VERIFIED
+  config: color                          # VERIFIED (color | grayscale | segmented)
+  license: CC-BY-SA-3.0                  # VERIFIED (HF API tag + upstream loader)
+  citation: >
+    Mohanty, S.P., Hughes, D.P., Salathé, M. (2016). Using Deep Learning for
+    Image-Based Plant Disease Detection. Frontiers in Plant Science 7:1419.
+    DOI 10.3389/fpls.2016.01419
+  homepage: https://github.com/spMohanty/PlantVillage-Dataset
+  # The image payload is a single archive, so there is no streaming path: the
+  # full 2.18 GB is transferred unless the zip range-read path succeeds.
+  archive_name: data.zip                 # VERIFIED
+  archive_mb: 2184.7                     # VERIFIED (HF API tree listing)
+  # Loading method VERIFIED as download_and_extract(data.zip).
+
+# Small metadata files fetched on their own (no images) so the leakage gate can
+# run before any megabyte of image data is transferred.
+metadata:
+  base_url: https://huggingface.co/datasets/mohanty/PlantVillage/resolve/main
+  files:                                 # VERIFIED sizes
+    splits/color_train.txt: 4.2          # MB, 43596 entries
+    splits/color_test.txt: 1.0           # MB, 10709 entries
+    leaf_grouping/leaf-map.json: 2.4     # MB
+  local_dir: data/metadata
+
+splits:
+  # The official test split is held untouched. Train/validation are carved from
+  # the official train split BY LEAF IDENTITY, never by image.
+  val_fraction_of_train_leaves: 0.11
+  seed: 42
+  # MEASURED FINDING: an independent audit of the upstream split found 5 leaf
+  # identifiers present in BOTH the official train and test lists, so the
+  # upstream claim of strict leaf grouping does not fully hold. "leak_free"
+  # keeps the official test set intact and drops those 5 leaves from
+  # train/validation instead. Use "official" to reproduce the upstream boundary
+  # and observe the small resulting inflation.
+  split_policy: leak_free
+
+# 12 classes: 4 crops x (two diseases + healthy).
+# Deliberately includes the genuinely confusable Early/Late blight pairs so the
+# confusion matrix is informative rather than a diagonal.
+classes:
+  - Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot
+  - Corn_(maize)___Common_rust_
+  - Corn_(maize)___healthy
+  - Grape___Black_rot
+  - Grape___Esca_(Black_Measles)
+  - Grape___healthy
+  - Potato___Early_blight
+  - Potato___Late_blight
+  - Potato___healthy
+  - Tomato___Early_blight
+  - Tomato___Late_blight
+  - Tomato___healthy
+
+image:
+  size: 224        # training/inference input size
+  cache_size: 256  # pre-resized JPEG cache edge length

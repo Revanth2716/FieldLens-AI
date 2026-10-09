@@ -1,0 +1,16 @@
+{
+  "range_supported": true,
+  "archive_bytes": 2184723441,
+  "archive_human": "2.0 GB",
+  "bytes_fetched": 31686902,
+  "bytes_fetched_human": "30.2 MB",
+  "requests_made": 682,
+  "source": "remote_range",
+  "requested": 240,
+  "written": 226,
+  "skipped_existing": 14,
+  "missing": 0,
+  "missing_sample": [],
+  "classes": 12,
+  "bytes_written": 4017610
+}

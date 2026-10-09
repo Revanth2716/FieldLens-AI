@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # CPU-only torch from the dedicated index. Installing the default PyPI
+      # build on Linux would pull the multi-GB CUDA wheel, which this suite does
+      # not need: every test avoids the network and the dataset.
+      - name: Install CPU-only PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+      # Installed separately, then the project with --no-deps, so pip does not
+      # re-resolve torch against PyPI and replace the CPU build.
+      - name: Install project and tooling
+        run: |
+          pip install numpy pillow PyYAML pytest ruff
+          pip install -e . --no-deps
+
+      # Every cache and temp directory is redirected away from the system drive.
+      # Harmless in CI, and it exercises the same code path the project uses.
+      - name: Environment report
+        run: |
+          python -c "import fieldlens.env as e; print(e.environment_report())"
+
+      - name: Lint
+        run: ruff check src tests scripts
+
+      - name: Verify the deep learning stack imports and runs on CPU
+        run: |
+          python - <<'PY'
+          import torch
+          from fieldlens.config import ModelConfig
+          from fieldlens.models.factory import build_model
+          model = build_model(ModelConfig("mobilenet_v3_small", "NONE", 64, 0.0), 12, pretrained=False)
+          with torch.inference_mode():
+              out = model(torch.randn(1, 3, 64, 64))
+          assert out.shape == (1, 12), out.shape
+          print("cpu forward pass ok:", tuple(out.shape))
+          PY
+
+      # Tiers 1-3: unit, integration and model tests. No dataset, no network.
+      # Dataset-dependent tests are marked `slow` and opt-in.
+      - name: Tests
+        run: pytest tests/ -q -m "not slow and not network" --no-header
+
+  # A fast, separate check that the pipeline entry points at least import
+  # cleanly on a clean install.
+  cli:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install CPU-only PyTorch
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+      - name: Install project
+        run: |
+          pip install numpy pillow PyYAML pytest ruff
+          pip install -e . --no-deps
+      - name: CLI help and environment report
+        run: |
+          fieldlens --help
+          fieldlens env
+      - name: Audit refuses cleanly without metadata
+        run: |
+          # Must fail with guidance rather than a traceback.
+          if fieldlens audit; then
+            echo "expected a non-zero exit when metadata is absent"
+            exit 1
+          fi
